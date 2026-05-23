@@ -2,11 +2,8 @@ import time
 
 inicio = time.perf_counter()
 
-with open("entrada.txt","r") as file:
-	conteudo = file.read().splitlines()
-
-valores_linha1 = conteudo[0].split(" ")
-valores_linha2 = conteudo[1].split(" ")
+valores_linha1 = input().split(" ")
+valores_linha2 = input().split(" ")
 val1 = 0
 val2 = 0
 

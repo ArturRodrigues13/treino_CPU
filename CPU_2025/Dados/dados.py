@@ -2,16 +2,15 @@ import time
 
 inicio = time.perf_counter()
 
-with open("Dados/entrada.txt","r") as file:
-	conteudo = file.read().splitlines()
-
+jogadores = int(input())
 calcula = []
-pontuacao = [0] * (int(conteudo[0]))
+pontuacao = []
 ganhadores = []
 texto = ""
 
-for x in range(int(conteudo[0])):
-	texto = conteudo[x + 1]
+for x in range(jogadores):
+	pontuacao.append(0)
+	texto = input()
 	texto = texto.replace("(","")
 	texto = texto.replace(")","")
 	texto = texto.replace(","," ")
@@ -21,13 +20,12 @@ for x in range(int(conteudo[0])):
 	for y in range(0, 10, 2) :
 		if(calcula[y] == calcula[y+1]):
 			pontuacao[x] += calcula[y] * calcula[y+1] * 2
-
 		else:
 			pontuacao[x] += calcula[y] * calcula[y+1]
 
-for x in range(int(conteudo[0])):
+for x in range(jogadores):
 	if(pontuacao[x]) == max(pontuacao):
-		ganhadores.insert(1, x+1)
+		ganhadores.append(x + 1)
 
 formata = ", ".join(str(num) for num in ganhadores)
 
