@@ -2,18 +2,11 @@ import time
 
 inicio = time.perf_counter()
 
-valores_linha1 = input().split(" ")
-valores_linha2 = input().split(" ")
-val1 = 0
-val2 = 0
+_, *valores_linha1 = [int(item) for item in input().split(" ")]
+_, *valores_linha2 = [int(item) for item in input().split(" ")]
 
-for x in range(int(valores_linha1[0])):
-	valores_linha1[x + 1] = int(valores_linha1[x + 1])
-	val1 += valores_linha1[x + 1]
-
-for x in range(int(valores_linha2[0])):
-	valores_linha2[x + 1] = int(valores_linha2[x + 1])
-	val2 += valores_linha2[x + 1]
+val1 = sum(valores_linha1)
+val2 = sum(valores_linha2)
 
 if(val1 == val2):
 	print("OK")
