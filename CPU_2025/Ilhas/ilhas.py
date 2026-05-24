@@ -38,7 +38,7 @@ while True:
 			b = busca_profundidade(grafos, a, b)
 
 			if(b):
-				print("TERRESTE")
+				print("TERRESTRE")
 			else:
 				print("MARITIMO")
 
