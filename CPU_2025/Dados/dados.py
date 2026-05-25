@@ -18,6 +18,11 @@ for x in range(jogadores):
 	calcula = [int(item) for item in texto]
 
 	for y in range(0, 10, 2) :
+
+		if(calcula[y] == calcula[y+1] and calcula[y] == 1):
+			pontuacao[x] += 30
+			continue
+
 		if(calcula[y] == calcula[y+1]):
 			pontuacao[x] += calcula[y] * calcula[y+1] * 2
 		else:
@@ -34,4 +39,7 @@ print(f"Ganhador(es): " + formata)
 
 fim = time.perf_counter()
 
-print(fim - inicio)
+tempo = fim - inicio
+
+if(tempo > 1.0):
+	print(tempo)
