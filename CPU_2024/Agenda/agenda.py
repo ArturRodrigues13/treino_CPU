@@ -2,8 +2,7 @@ import time
 
 inicio = time.perf_counter()
 
-agenda = [0 for _ in range(72)]
-tarefas_desc = []
+agenda = [None for _ in range(72)]
 cont = 0
 espaco_maximo = 0
 
@@ -13,9 +12,9 @@ for x in range(loop):
 
 	t, *desc = input().split(" ")
 
+	desc = " ".join(desc)
+
 	if(t == "A"):
-		tarefas_desc.append(desc)
-		indice = tarefas_desc.index(desc) + 1
 
 		dur, dia, ini = map(int, input().split(" "))
 
@@ -25,26 +24,24 @@ for x in range(loop):
 
 		for y in range(dia * 24 + ini, 72, 1):
 
-			if(agenda[y] == 0):
+			if(agenda[y] == None):
 				espaco += 1
 			else:
 				espaco = 0
 
 			if(espaco == dur):
-				agenda[y + 1 - espaco: y + 1] = [indice] * dur
+				agenda[y + 1 - espaco: y + 1] = [desc] * dur
 				break
 
 	elif(t == "C"):
 
-		indice = tarefas_desc.index(desc) + 1
-
 		for y in range(72):
-			if(agenda[y] is indice):
-				agenda[y] = 0
+			if(agenda[y] == desc):
+				agenda[y] = None
 
 for x in range(72):
 
-	if(agenda[x] == 0):
+	if(agenda[x] == None):
 		cont += 1
 		if(cont > espaco_maximo):
 			espaco_maximo = cont
