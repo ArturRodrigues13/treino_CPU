@@ -7,14 +7,14 @@ def busca_profundidade(grafo, no, buscado, visitados=None):
 	if visitados is None:
 		visitados = set()
 
-	visitados.add(no)
+	if(no == buscado):
+		return True
 
 	for vizinho in grafo.get(no, []):
 		if vizinho not in visitados:
-			b = busca_profundidade(grafo, vizinho, buscado, visitados)
-
-	if(buscado in visitados):
-		return True
+			visitados.add(vizinho)
+			if(busca_profundidade(grafo, vizinho, buscado, visitados)):
+				return True
 
 	return False
 
