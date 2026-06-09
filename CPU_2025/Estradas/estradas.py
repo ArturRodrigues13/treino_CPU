@@ -2,58 +2,56 @@ import time
 
 inicio = time.perf_counter()
 
-def union(pais, o, d):
+def union(pais, rank, o, d):
 	ro = find(pais, o)
 	rd = find(pais, d)
 
 	if ro == rd:
 		return False
+	if rank[ro] < rank[rd]:
+		pais[ro] = rd
+	elif rank[ro] > rank[rd]:
+		pais[rd] = ro
+	else:
+		pais[rd] = ro
+		rank[ro] += 1
 
-	pais[rd - 1] = ro
 	return True
 
 def find(pais, x):
-	while pais[x - 1] != x:
-		x = pais[x - 1]
-	return x
+	if pais[x] != x:
+		pais[x] = find(pais, pais[x])
+	return pais[x]
 
 while True:
 	try:
 		v, a = map(int, input().split(" "))
 
 		arestas = [None for _ in range(a)]
-		arestas_esc = []
-		pais = [x + 1 for x in range(v)]
-		preco = []
+		arestas_esc = 0
+		pais = [x for x in range(v)]
+		rank = [0] * v
+		preco = 0
 
 		for x in range(a):
-			o, d, v, c = input().split(" ")
+			o, d, val, c = input().split(" ")
 			o = int(o)
 			d = int(d)
-			peso = float(v) - float(c)
-			arestas[x] = [o, d, float(v), peso]
+			peso = float(val) - float(c)
+			arestas[x] = [o - 1, d - 1, float(val), peso]
 
 		arestas.sort(key=lambda x:x[3])
 
-		while True:
+		for o, d, val, _ in arestas:
 
-			if(len(arestas) == 0):
+			if(arestas_esc == v - 1):
 				break
 
-			origem = arestas[0][0]
-			destino = arestas[0][1]
+			if(union(pais,rank, o, d)):
+				preco += val
+				arestas_esc += 1
 
-			if(union(pais, origem, destino)):
-				preco.append(arestas[0][2])
-				arestas_esc.append(arestas[0])
-				arestas.pop(0)
-				continue
-
-			arestas.pop(0)
-
-		soma = sum(preco)
-
-		print(f"{soma:.2f}")
+		print(f"{preco:.2f}")
 
 	except EOFError:
 		break
